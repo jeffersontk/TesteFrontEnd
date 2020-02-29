@@ -1,58 +1,56 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
-const keyAPI = 'AIzaSyCgUeaEWo0f3A8WQOHhusInjTeHUjUF-Jk'
-const termSearch = 'codigofontetv'
-const result = 10
 //https://www.googleapis.com/youtube/v3/search?part=id,snippet&q={termo_de_busca}&key={API_KEY}
 //'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCXgGY0wkgOzynnHvSEVmE3A&key=[YOUR_API_KEY]' \
 
-var finalURL = `https://www.googleapis.com/youtube/v3/search?key=${keyAPI}&part=snippet&maxResults=${result}&q=${termSearch}`
 
-class Youtube extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            resultyt: [],
-            term: ''
-        }
-        this.clicked = this.clicked.bind(this)
+export default function Youtube() {
+
+    const keyAPI = 'AIzaSyCgUeaEWo0f3A8WQOHhusInjTeHUjUF-Jk'
+    const result = 10
+
+    const [term, setTerm] = useState('')
+    const [resultyts, setResultyts] = useState([])
+
+    var searchURL = `https://www.googleapis.com/youtube/v3/search?key=${keyAPI}&part=snippet&maxResults=${result}&q=${term}`
+    const handleSubmit = event => {
+        event.preventDefault();
     }
-    clicked() {
-        fetch(finalURL)
+
+    const search = () => {
+        fetch(searchURL)
             .then((response) => response.json())
             .then((responseJson) => {
-                const resultyt = responseJson.items.map(obj => "https://www.youtube.com/embed/" + obj.id.videoId)
-                this.setState({ resultyt })
+                const result = responseJson.items.map(obj => obj.snippet)
+                setResultyts(result)
+                console.log(resultyts)
+
             })
             .catch((error) => {
                 console.log(error)
             })
     }
-    handleChange = (event) => {
-        this.setState({
-            term: event.target.value
-        })
-        console.log(this.state.term)
-    }
-    handleSubmit = event => {
-        event.preventDefault();
-    }
-    render() {
-        return (
+    return (
 
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input placeholder="pesquisar" onChange={this.handleChange} value={this.state.term}></input>
-                    <button onClick={this.clicked}>search</button>
-                </form>
+        <div>
+            <h1> teste </h1>
+            <form onSubmit={handleSubmit}>
+                <input placeholder="pesquisar" onChange={e => setTerm(e.target.value)} value={term}></input>
+                <button onClick={search}>search</button>
+            </form>
 
-                <br></br>
-                {this.state.resultyt.map((link, i) => {
-                    var frame = <div key={i}> <iframe title="This is a unique title" width="560" height="315" src={link} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> </div>
-                    return frame
-                })}
-            </div>
-        )
-    }
+            {resultyts.map((resulty, i) => (
+                <ul>
+                    <li key={i}>
+                        <img src={resulty.thumbnails.medium.url} alt={resulty.title} />
+                        <h3>{resulty.title}</h3>
+                        <p>{resulty.description}</p>
+                        <button>ver Video</button>
+                    </li>
+                </ul>
+            ))}
+
+        </div>
+    )
+
 }
-export default Youtube
