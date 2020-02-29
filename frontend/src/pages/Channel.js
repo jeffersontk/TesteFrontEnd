@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 // var viewURL = `https://developers.google.com/apis-explorer/#p/youtube/v3/youtube.search.list?part=id%2C%20snippet&maxResults=10&order=viewCount&q=}&type=video`
 
-export default function ChannelView({ match }) {
+export default function ChannelView({ match, history }) {
     const [channels, setChannel] = useState([])
     const keyAPI = 'AIzaSyDNsDWSFTRFQYLRjfYp91HOOhKQm1e85RY'
     console.log(match.params.id)
@@ -23,7 +23,9 @@ export default function ChannelView({ match }) {
         }
         loadChannel()
     }, [match.params.id])
-
+    const backToPage = () => {
+        history.push('/')
+    }
     return (
         <div>
             {channels.map(channel => (
@@ -36,6 +38,7 @@ export default function ChannelView({ match }) {
                         <p>{channel.statistics.subscriberCount}</p>
                         <p>{channel.statistics.videoCount}</p>
                     </li>
+                    <button onClick={backToPage} >voltar</button>
                 </ul>
             ))
             }

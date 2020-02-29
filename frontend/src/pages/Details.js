@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 
-export default function VideoView({ match }) {
+export default function VideoView({ match, history }) {
     const [videos, setVideos] = useState([])
     const keyAPI = 'AIzaSyDNsDWSFTRFQYLRjfYp91HOOhKQm1e85RY'
 
@@ -21,6 +21,10 @@ export default function VideoView({ match }) {
         }
         loadChannel()
     }, [match.params.id])
+
+    const backToPage = () => {
+        history.push('/')
+    }
     return (
         <div>
             {videos.map(video => (
@@ -32,6 +36,7 @@ export default function VideoView({ match }) {
                         <p>{video.statistics.viewCount}</p>
                         <p>{video.statistics.likeCount}</p>
                         <p>{video.statistics.dislikeCount}</p>
+                        <button onClick={backToPage} >voltar</button>
                     </li>
                 </ul>
             ))
