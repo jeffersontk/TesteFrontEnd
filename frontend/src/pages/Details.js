@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
+
 export default function VideoView({ match }) {
     const [videos, setVideos] = useState([])
-    const keyAPI = 'AIzaSyCgUeaEWo0f3A8WQOHhusInjTeHUjUF-Jk'
+    const keyAPI = 'AIzaSyDNsDWSFTRFQYLRjfYp91HOOhKQm1e85RY'
 
     const videoURL = `https://www.googleapis.com/youtube/v3/videos?id=${match.params.id}&part=snippet,statistics&maxResults=1&key=${keyAPI}`
 
@@ -10,8 +11,8 @@ export default function VideoView({ match }) {
         function loadChannel() {
             fetch(videoURL)
                 .then((response) => response.json())
-                .then((response) => {
-                    const video = response.items.map(obj => obj)
+                .then((responseJson) => {
+                    const video = responseJson.items.map(obj => obj)
                     setVideos(video)
                 })
                 .catch((error) => {
@@ -20,10 +21,22 @@ export default function VideoView({ match }) {
         }
         loadChannel()
     }, [match.params.id])
-    console.log(videos)
     return (
         <div>
-            <h1>videos view</h1>
+            {videos.map(video => (
+                <ul>
+                    <li key={video.id}>
+                        <iframe width="560" height="315" src={`https://www.youtube.com/embed/${video.id}`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                        <h1>{video.snippet.title}</h1>
+                        <p>{video.snippet.description}</p>
+                        <p>{video.statistics.viewCount}</p>
+                        <p>{video.statistics.likeCount}</p>
+                        <p>{video.statistics.dislikeCount}</p>
+                    </li>
+                </ul>
+            ))
+            }
+
         </div>
     )
 }

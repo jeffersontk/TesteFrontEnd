@@ -1,19 +1,14 @@
 import React, { useState } from 'react'
 
-//https://www.googleapis.com/youtube/v3/search?part=id,snippet&q={termo_de_busca}&key={API_KEY}
-//'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCXgGY0wkgOzynnHvSEVmE3A&key=[YOUR_API_KEY]' \
-//https://developers.google.com/apis-explorer/#p/youtube/v3/youtube.search.list?part=snippet&maxResults=10&order=viewCount&q=skateboarding+dog&type=video
-
 export default function Youtube({ history }) {
 
-    const keyAPI = 'AIzaSyCgUeaEWo0f3A8WQOHhusInjTeHUjUF-Jk'
-    const result = 10
+    const keyAPI = 'AIzaSyDNsDWSFTRFQYLRjfYp91HOOhKQm1e85RY'
 
     const [term, setTerm] = useState('')
     const [resultyts, setResultyts] = useState([])
 
 
-    var searchURL = `https://www.googleapis.com/youtube/v3/search?key=${keyAPI}&part=id%2C%20snippet&maxResults=${result}&q=${term}`
+    var searchURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${term}&key=${keyAPI}`
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -39,13 +34,11 @@ export default function Youtube({ history }) {
 
             history.push(`/details/${id.videoId}`)
         }
-
     }
 
     return (
 
         <div>
-            <h1> teste </h1>
             <form onSubmit={handleSubmit}>
                 <input placeholder="pesquisar" onChange={e => setTerm(e.target.value)} value={term}></input>
                 <button onClick={search}>search</button>
