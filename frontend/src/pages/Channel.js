@@ -5,10 +5,9 @@ import React, { useState, useEffect } from 'react'
 export default function ChannelView({ match, history }) {
     const [channels, setChannel] = useState([])
     const keyAPI = 'AIzaSyDNsDWSFTRFQYLRjfYp91HOOhKQm1e85RY'
-    console.log(match.params.id)
-    const channelURL = `https://www.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics&id=${match.params.id}&key=${keyAPI}`
 
     useEffect(() => {
+        const channelURL = `https://www.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics&id=${match.params.id}&key=${keyAPI}`
         function loadChannel() {
             fetch(channelURL)
                 .then((response) => response.json())

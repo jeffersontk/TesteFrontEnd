@@ -39,9 +39,9 @@ export default function Youtube({ history }) {
     return (
 
         <div>
-            <form onSubmit={handleSubmit}>
-                <input placeholder="pesquisar" onChange={e => setTerm(e.target.value)} value={term}></input>
-                <button onClick={search}>search</button>
+            <form className="formSearch" onSubmit={handleSubmit}>
+                <input className="imputSearch" placeholder="pesquisar" onChange={e => setTerm(e.target.value)} value={term}></input>
+                <button className="btnSearch" onClick={search}>search</button>
             </form>
 
             {resultyts.map((resulty, i) => (

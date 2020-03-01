@@ -5,10 +5,10 @@ export default function VideoView({ match, history }) {
     const [videos, setVideos] = useState([])
     const keyAPI = 'AIzaSyDNsDWSFTRFQYLRjfYp91HOOhKQm1e85RY'
 
-    const videoURL = `https://www.googleapis.com/youtube/v3/videos?id=${match.params.id}&part=snippet,statistics&maxResults=1&key=${keyAPI}`
 
     useEffect(() => {
-        function loadChannel() {
+        const videoURL = `https://www.googleapis.com/youtube/v3/videos?id=${match.params.id}&part=snippet,statistics&maxResults=1&key=${keyAPI}`
+        function loadVideo() {
             fetch(videoURL)
                 .then((response) => response.json())
                 .then((responseJson) => {
@@ -19,7 +19,7 @@ export default function VideoView({ match, history }) {
                     console.log(error)
                 })
         }
-        loadChannel()
+        loadVideo()
     }, [match.params.id])
 
     const backToPage = () => {
@@ -30,7 +30,7 @@ export default function VideoView({ match, history }) {
             {videos.map(video => (
                 <ul>
                     <li key={video.id}>
-                        <iframe width="560" height="315" src={`https://www.youtube.com/embed/${video.id}`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                        <iframe title={video.snippet.title} width="560" height="315" src={`https://www.youtube.com/embed/${video.id}`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                         <h1>{video.snippet.title}</h1>
                         <p>{video.snippet.description}</p>
                         <p>{video.statistics.viewCount}</p>
