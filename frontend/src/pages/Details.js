@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-
+import "./details.css";
 export default function VideoView({ match, history }) {
   const [videos, setVideos] = useState([]);
-  const keyAPI = "AIzaSyDNsDWSFTRFQYLRjfYp91HOOhKQm1e85RY";
+  const keyAPI = "AIzaSyCCz2cLBBA1lKv_PuD7DP_D_jmpA5mB628";
 
   useEffect(() => {
     const videoURL = `https://www.googleapis.com/youtube/v3/videos?id=${match.params.id}&part=snippet,statistics&maxResults=1&key=${keyAPI}`;
@@ -24,27 +24,25 @@ export default function VideoView({ match, history }) {
     history.push("/");
   };
   return (
-    <div>
+    <div className="container">
+      <button onClick={backToPage}>voltar</button>
       {videos.map(video => (
-        <ul>
-          <li key={video.id}>
-            <iframe
-              title={video.snippet.title}
-              width="560"
-              height="315"
-              src={`https://www.youtube.com/embed/${video.id}`}
-              frameBorder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-            <h1>{video.snippet.title}</h1>
-            <p>{video.snippet.description}</p>
-            <p>{video.statistics.viewCount}</p>
-            <p>{video.statistics.likeCount}</p>
-            <p>{video.statistics.dislikeCount}</p>
-            <button onClick={backToPage}>voltar</button>
-          </li>
-        </ul>
+        <li className="VideoDetails" key={video.id}>
+          <iframe
+            title={video.snippet.title}
+            width="560"
+            height="315"
+            src={`https://www.youtube.com/embed/${video.id}`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+          <h1>{video.snippet.title}</h1>
+          <p>{video.snippet.description}</p>
+          <p>{video.statistics.viewCount}</p>
+          <p>{video.statistics.likeCount}</p>
+          <p>{video.statistics.dislikeCount}</p>
+        </li>
       ))}
     </div>
   );

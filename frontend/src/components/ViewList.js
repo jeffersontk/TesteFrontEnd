@@ -1,29 +1,29 @@
 import React from "react";
+import "./viewList.css";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
-export default function ViewList(props, history) {
-  const viewMore = id => {
-    if (id.channelId !== "" && id.channelId != null) {
-      history.push(`/channel/${id.channelId}`);
-    } else {
-      history.push(`/details/${id.videoId}`);
-    }
-  };
-
+export default function ViewList(props) {
   return (
-    <div>
-      <ul>
-        {props.result.map((resulty, i) => (
-          <li key={i}>
-            <img
-              src={resulty.snippet.thumbnails.medium.url}
-              alt={resulty.snippet.title}
-            />
-            <h3>{resulty.snippet.title}</h3>
-            <p>{resulty.snippet.description}</p>
-            <button onClick={() => viewMore(resulty.id)}>ver mais</button>
-          </li>
-        ))}
-      </ul>
+    <div className="view">
+      {props.result.map((resulty, i) => (
+        <li key={i} className="itemResult">
+          <img
+            className="imgResult"
+            src={resulty.snippet.thumbnails.medium.url}
+            alt={resulty.snippet.title}
+          />
+          <div className="infoResult">
+            <p className="titleResult">{resulty.snippet.title}</p>
+            <p className="descriptionResult">{resulty.snippet.description}</p>
+          </div>
+          <button
+            className="btnResult"
+            onClick={() => props.viewMore(resulty.id)}
+          >
+            <MdKeyboardArrowRight className="iconResult" />
+          </button>
+        </li>
+      ))}
     </div>
   );
 }

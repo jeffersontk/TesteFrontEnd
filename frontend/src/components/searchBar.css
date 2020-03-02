@@ -1,0 +1,55 @@
+.formSearch {
+  display: flex;
+  margin-top: 200px;
+  margin-bottom: 10px;
+  animation-name: fade;
+  animation-duration: 700ms;
+}
+.inputSearch {
+  width: 260px;
+  height: 18px;
+  margin-right: 10px;
+  padding: 8px;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  outline: none;
+}
+.btnSearch {
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  outline: none;
+}
+.searchIcon {
+  width: 20px;
+  height: 20px;
+  margin-top: 5px;
+  align-items: center;
+  outline: none;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.formup {
+  animation: up 1s none 1s linear;
+}
+
+@keyframes up {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1) translateY(-120px);
+  }
+}

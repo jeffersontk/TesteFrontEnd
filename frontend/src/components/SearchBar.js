@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import "./searchBar.css";
+import { MdSearch } from "react-icons/md";
 
-export default function SearchBar() {
-  const [term, setTerm] = useState("");
-  const handleSubmit = event => {
-    event.preventDefault();
-  };
-
+export default function SearchBar(props) {
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <>
+      <form id="form" className="formSearch" onSubmit={props.handleFormSubmit}>
         <input
+          className="inputSearch"
           placeholder="pesquisar"
-          onChange={e => setTerm(e.target.value)}
-          value={term}
+          onChange={props.handleFormChange}
+          value={props.value}
         ></input>
-        <button>search</button>
+        <button id="btn-submit" type="submit" className="btnSearch">
+          <MdSearch className="searchIcon" />
+        </button>
       </form>
-    </div>
+    </>
   );
 }
