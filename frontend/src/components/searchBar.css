@@ -1,6 +1,6 @@
 .formSearch {
   display: flex;
-  margin-top: 200px;
+  margin-top: 10px;
   margin-bottom: 10px;
   animation-name: fade;
   animation-duration: 700ms;
@@ -38,18 +38,5 @@
   }
   to {
     opacity: 1;
-  }
-}
-
-.formup {
-  animation: up 1s none 1s linear;
-}
-
-@keyframes up {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1) translateY(-120px);
   }
 }

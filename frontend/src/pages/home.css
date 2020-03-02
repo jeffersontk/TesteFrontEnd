@@ -1,0 +1,12 @@
+.formup {
+  animation: up 1s none 1s linear;
+}
+
+@keyframes up {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1) translateY(-120px);
+  }
+}

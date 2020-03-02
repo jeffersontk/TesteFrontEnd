@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./details.css";
+import { MdChevronLeft } from "react-icons/md";
+import { AiOutlineDislike } from "react-icons/ai";
+import { AiOutlineLike } from "react-icons/ai";
 export default function VideoView({ match, history }) {
   const [videos, setVideos] = useState([]);
   const keyAPI = "AIzaSyCCz2cLBBA1lKv_PuD7DP_D_jmpA5mB628";
@@ -23,27 +26,53 @@ export default function VideoView({ match, history }) {
   const backToPage = () => {
     history.push("/");
   };
+
   return (
     <div className="container">
-      <button onClick={backToPage}>voltar</button>
-      {videos.map(video => (
-        <li className="VideoDetails" key={video.id}>
-          <iframe
-            title={video.snippet.title}
-            width="560"
-            height="315"
-            src={`https://www.youtube.com/embed/${video.id}`}
-            frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-          <h1>{video.snippet.title}</h1>
-          <p>{video.snippet.description}</p>
-          <p>{video.statistics.viewCount}</p>
-          <p>{video.statistics.likeCount}</p>
-          <p>{video.statistics.dislikeCount}</p>
-        </li>
-      ))}
+      <div className="VideoDetails">
+        <button className="btnBack" onClick={backToPage}>
+          <MdChevronLeft className="iconBack" />
+        </button>
+        {videos.map(video => (
+          <li key={video.id} className="liVideo">
+            <div className="video">
+              <div className="video-sobre">
+                <iframe
+                  className="iframeVideo"
+                  title={video.snippet.title}
+                  width="560"
+                  height="315"
+                  src={`https://www.youtube.com/embed/${video.id}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+              <div className="descriptionVideo">
+                <h3 className="videoTitle">{video.snippet.title}</h3>
+                <span className="statisticsSpan">
+                  {" "}
+                  Visualizações {video.statistics.viewCount}
+                </span>
+                <span className="statisticsSpan">
+                  <AiOutlineLike className="iconStatistcs" />
+                  {video.statistics.likeCount}
+                </span>
+                <span className="statisticsSpan">
+                  <AiOutlineDislike className="iconStatistcs" />
+                  {video.statistics.dislikeCount}
+                </span>
+
+                <p className="videoDescription">
+                  <strong>Descrição</strong> <br></br>
+                  <br></br>
+                  {video.snippet.description}
+                </p>
+              </div>
+            </div>
+          </li>
+        ))}
+      </div>
     </div>
   );
 }

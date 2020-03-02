@@ -7,29 +7,33 @@ export default function Home({ history }) {
   const [term, setTerm] = useState("");
   const [resultyts, setResultyts] = useState([]);
 
-  const [addClass, setAddClass] = useState("");
-  const form = document.getElementById(".form");
+  const [addClass, setAddClass] = useState(false);
 
   var searchURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${term}&key=${keyAPI}`;
 
   const handleChange = e => {
     setTerm(e.target.value);
   };
+  const handleClass = () => {
+    setAddClass("form-up");
+  };
   const handleSubmit = event => {
     event.preventDefault();
 
-    fetch(searchURL)
-      .then(response => response.json())
-      .then(responseJson => {
-        const result = responseJson.items.map(obj => obj);
-        setResultyts(result);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    setAddClass("form-up");
-    //form.classList.add(addClass);
+    if (term !== "" && term != null) {
+      //handleClass();
+      fetch(searchURL)
+        .then(response => response.json())
+        .then(responseJson => {
+          const result = responseJson.items.map(obj => obj);
+          setResultyts(result);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {
+      alert("campo vazio");
+    }
   };
 
   const viewMore = id => {
@@ -39,10 +43,10 @@ export default function Home({ history }) {
       history.push(`/details/${id.videoId}`);
     }
   };
-
   return (
     <div className="container">
       <SearchBar
+        className="searchbar"
         handleFormSubmit={handleSubmit}
         handleFormChange={handleChange}
         value={term}
