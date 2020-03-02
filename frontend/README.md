@@ -18,4 +18,4 @@ Esse teste foi um desafio e tanto para mim, nunca tinha usado uma api do google,
 
 https://www.figma.com/file/wsFPYrbANSiwJCYBR3wmeh/vertex-TestFront-end?node-id=0%3A1
 
-agradeço muito a oporturnidade de participar desse processo seletivo, acrescentou muito aos meus conhecimentos.
+agradeço muito a oporturnidade de participar desse processo seletivo, acrescentou muito aos meus conhecimentos e gostaria de um feedback.
